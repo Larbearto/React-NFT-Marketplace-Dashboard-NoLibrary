@@ -1,34 +1,44 @@
-import React from 'react'
-import "./Menu.css"
-import logo from '../Assets/logo.png'
+import React, { useEffect } from 'react'
+import './Menu.css'
+import Logo from '../Assets/logo.png'
 import { FaDelicious, FaShoppingCart, FaWallet, FaChartLine, FaRegClock, FaCog, FaSignOutAlt } from 'react-icons/fa'
 
-
 function Menu() {
-  return (
-    <menu>
-      <img src={ logo } alt='' />
+	useEffect(() => {
+		const mainMenuLi = document.getElementById('mainMenu').querySelectorAll('li')
 
-      <ul id='mainMenu'>
-        <Icon icon={ <FaDelicious /> } />
-        <Icon icon={ <FaShoppingCart /> } />;
-        <Icon icon={ <FaWallet /> } />;
-        <Icon icon={ <FaChartLine /> } />;
-        <Icon icon={ <FaRegClock /> } />;
-      </ul>
+		function changeActive() {
+			mainMenuLi.forEach((n) => n.classList.remove('active'))
+			this.classList.add('active')
+		}
 
-      <ul className='lastMenu'>
-        <Icon icon={ <FaCog /> } />
-        <Icon icon={ <FaSignOutAlt /> } />
-      </ul>
-   </menu>
-  )
+		mainMenuLi.forEach((n) => n.addEventListener('click', changeActive))
+	}, [])
+
+	return (
+		<menu>
+			<img src={Logo} alt='' />
+
+			<ul id='mainMenu'>
+				<Icon icon={<FaDelicious />} />
+				<Icon icon={<FaShoppingCart />} />;
+				<Icon icon={<FaWallet />} />;
+				<Icon icon={<FaChartLine />} />;
+				<Icon icon={<FaRegClock />} />;
+			</ul>
+
+			<ul className='lastMenu'>
+				<Icon icon={<FaCog />} />
+				<Icon icon={<FaSignOutAlt />} />
+			</ul>
+		</menu>
+	)
 }
 
-const Icon = ( { icon } ) => (
-  <li>
-    <a href='#'>{icon}</a>
-  </li>
+const Icon = ({ icon }) => (
+	<li>
+		<a href='#'>{icon}</a>
+	</li>
 )
 
 export default Menu
